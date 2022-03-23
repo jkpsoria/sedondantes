@@ -39,12 +39,4 @@ class AddRoom(models.Model):
     roomtype = models.CharField(max_length=50)
     class meta:
         db_table = 'nameless_addroom'
-class Admin(models.Model):
-    username = models.CharField(max_length=100,unique =True,blank = False)
-    password = models.CharField(max_length=100,blank = False)
-    emailadd = models.CharField(max_length=100, unique = True,blank = False)
-    fname = models.CharField(max_length=50,blank = False)
-    lname = models.CharField(max_length=50,blank = False)
-    address = models.CharField(max_length=50,blank = False)
-    contactNum = models.CharField(max_length=50, default = False,blank = False)
 

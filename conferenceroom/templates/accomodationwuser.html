@@ -6,7 +6,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" href="{% static 'image/favicon2.png' %}">
+        <link rel="icon" href="{% static 'media/favicon2.png' %}">
         <title>Sedon Dantes</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
@@ -25,7 +25,7 @@
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="index.html"><img src="{% static 'image/sedonlogo.png' %}" alt=""></a>
+                    <a class="navbar-brand logo_h" href="index.html"><img src="{% static 'media/sedonlogo.png' %}" alt=""></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -72,24 +72,22 @@
             </div>
         </section>
         <!--================Breadcrumb Area =================-->
+        
         <!--================ Accomodation Area  =================-->
         <section class="accomodation_area section_gap">
-    {% if request.GET.search %}<div>{{ request.GET.search}}</div> {% endif %}
             <div class="container">
                 <div class="section_title text-center">
-
                     <h2 class="title_color">Conference Room</h2>
                     <p>Sedon Dantes caters a wide choices of Conference Room. We offer high class and aesthetically pleasing rooms.</p>
-                    <h2>Most booked room: {{room.roomtype}}</h2>
-                    <h2>Current number of bookings: {{room.count}}</h2> 
                 </div>
+                <h2>{{ room }}</h2>
              
                 
      <div class="row mb_30">
                     <div class="col-lg-3 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
-                                <img src="{% static 'image/rooma.jpg' %}" alt="">
+                                <img src="{% static 'media/rooma.jpg' %}" alt="">
                                 <a href="{% url 'conferenceroom:my_room_view' %}" class="btn theme_btn button_hover">Book Now</a>
                             </div>
                             <a href="#"><h4 class="sec_h4">Conference Room Type A</h4></a>
@@ -101,7 +99,7 @@
                       <div class="col-lg-3 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
-                                <img src="{% static 'image/room.jpg' %}" alt="">
+                                <img src="{% static 'media/room.jpg' %}" alt="">
                                 <a href="{% url 'conferenceroom:my_room_view' %}" class="btn theme_btn button_hover">Book Now</a>
                             </div>
                             <a href="#"><h4 class="sec_h4">Conference Room Type B</h4></a>
@@ -112,7 +110,7 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
-                                <img src="{% static 'image/roomc.jpg' %}" alt="">
+                                <img src="{% static 'media/roomc.jpg' %}" alt="">
                                 <a href="{% url 'conferenceroom:my_room_view' %}#" class="btn theme_btn button_hover">Book Now</a>
                             </div>
                             <a href="#"><h4 class="sec_h4">Conference Room Type C</h4></a>
@@ -123,7 +121,7 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
-                                <img src="{% static 'image/roomd.jpeg' %}" alt="">
+                                <img src="{% static 'media/roomd.jpeg' %}" alt="">
                                 <a href="{% url 'conferenceroom:my_room_view' %}" class="btn theme_btn button_hover">Book Now</a>
                             </div>
                             <a href="#"><h4 class="sec_h4">Conference Room Type 4</h4></a>
@@ -186,14 +184,14 @@
                         <div class="single-footer-widget instafeed">
                             <h6 class="footer_title">InstaFeed</h6>
                             <ul class="list_style instafeed d-flex flex-wrap">
-                                <li><img src="{% static 'image/instagram/Image-01.jpg' %}" alt=""></li>
-                                <li><img src="{% static 'image/instagram/Image-02.jpg' %}" alt=""></li>
-                                <li><img src="{% static 'image/instagram/Image-03.jpg' %}" alt=""></li>
-                                <li><img src="{% static 'image/instagram/Image-04.jpg' %}" alt=""></li>
-                                <li><img src="{% static 'image/instagram/Image-05.jpg' %}" alt=""></li>
-                                <li><img src="{% static 'image/instagram/Image-06.jpg' %}" alt=""></li>
-                                <li><img src="{% static 'image/instagram/Image-07.jpg' %}" alt=""></li>
-                                <li><img src="{% static 'image/instagram/Image-08.jpg' %}" alt=""></li>
+                                <li><img src="{% static 'media/instagram/Image-01.jpg' %}" alt=""></li>
+                                <li><img src="{% static 'media/instagram/Image-02.jpg' %}" alt=""></li>
+                                <li><img src="{% static 'media/instagram/Image-03.jpg' %}" alt=""></li>
+                                <li><img src="{% static 'media/instagram/Image-04.jpg' %}" alt=""></li>
+                                <li><img src="{% static 'media/instagram/Image-05.jpg' %}" alt=""></li>
+                                <li><img src="{% static 'media/instagram/Image-06.jpg' %}" alt=""></li>
+                                <li><img src="{% static 'media/instagram/Image-07.jpg' %}" alt=""></li>
+                                <li><img src="{% static 'media/instagram/Image-08.jpg' %}" alt=""></li>
                             </ul>
                         </div>
                     </div>						
@@ -228,59 +226,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <script src="{% static 'js/stellar.js' %}"></script>
         <script src="{% static 'vendors/lightbox/simpleLightbox.min.js' %}"></script>
         <script src="{% static 'js/custom.js' %}"></script>
-<script>
-const f = document.getElementById('form');
-const q = document.getElementById('query');
-const google = 'https://www.google.com/search?q=site%3A+';
-const site = 'pagedart.com';
-
-function submitted(event) {
-  event.preventDefault();
-  const url = google + site + '+' + q.value;
-  const win = window.open(url, '_blank');
-  win.focus();
-}
-
-f.addEventListener('submit', submitted);
-        </script>
-<style>
-form {
-    background-color: #fff;
-    width: 300px;
-    height: 44px;
-    border-radius: 5px;
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-  }
-  
-  input {
-    all: unset;
-    font: 16px system-ui;
-    height: 100%;
-    width: 100%;
-    padding: 6px 10px;
-  }
-  
-  ::placeholder {
-    color: #B4B4B4;
-    opacity: 0.7; 
-  }
-  
-  svg {
-    color: #fff;
-    fill: currentColor;
-    width: 24px;
-    height: 24px;
-    padding: 10px;
-  }
-  
-  button {
-    all: unset;
-    cursor: pointer;
-    width: 44px;
-    height: 44px;
-  }
-</style>
     </body>
 </html>

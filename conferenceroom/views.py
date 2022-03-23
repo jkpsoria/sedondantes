@@ -13,32 +13,25 @@ class IndexView(View):
 		return render(request,'index.html',{})
 class AccomodationView(View): 
 	def get(self, request):
-		room = Room.objects.values('roomtype').annotate(count=Count('roomtype')).latest('count')
-		count_date = Room.objects.values('dateofuse').annotate(count=Count('dateofuse'))
-		context = {
-			'room':room,
-			'count_date':count_date
-			}
 		return render(request,'accomodation.html',{})
 class SignInView(View): 
 	def get(self, request):
 		return render(request, 'signin.html',{})
 	def post(self, request):
+
 		if request.method == 'POST':
 			username= request.POST.get("username")
 			password = request.POST.get("password")
 			check_user = User.objects.filter(username=username,password=password)
-			check_admin = Admin.objects.filter(username='admin',password='admin')
+
 			if check_user:
 				request.session['usern'] = username
 				if User.objects.filter(username=username).count()>0:
 					return redirect('/conferenceroom/indexwuser')
+				elif User.objects.filter(username='admin').count()>0:
+					return redirect('/conferenceroom/admin')
 				else:
 					return redirect('/conferenceroom/signin.html')
-			if check_admin:
-				request.session['admin'] = username
-				if Admin.objects.filter(username=username).count()>0:
-					return redirect('/conferenceroom/admin')
 		else:	
 			return render(request,"signup.html", context)
 class RegistrationView(View): 
@@ -167,21 +160,28 @@ class AboutUsViewWUser(View):
 			context = {
 			'userdetails':userdetails,
 			}
-		return render(request,'aboutwuser.html', context)
+class AdminDashboardView(View):
+	def get(self, request):
+		if 'usern' in request.session:
+			current_user = request.session['usern']
+			userdetails = User.objects.filter(username=current_user)
+			count_date = Room.objects.values('dateofuse').order_by('dateofuse').annotate(count=Count('dateofuse'))
+			#room = Room.objects.values('roomtype').annotate(count=Count('roomtype'))
+			#room_max = room.aggregate(Max('roomtype')
+			context = {
+			'userdetails':userdetails,
+			'count_date':count_date
+			}
+		return render(request,'admindashboard.html', context)
 class AccomodationViewWUser(View):
 	def get(self, request):
 		if 'usern' in request.session:
-			current_user = request.session['admin']
-			userdetails = Admin.objects.filter(username=current_user)
-			room = Room.objects.values('roomtype').annotate(count=Count('roomtype')).latest('count')
-			#order_by().annotate(count=Count('roomtype'))
-			#room = Room.objects.aggregate(max=Max('roomtype'))
-			count_date = Room.objects.values('dateofuse').annotate(count=Count('dateofuse'))
-			
+			current_user = request.session['usern']
+			userdetails = User.objects.filter(username=current_user)
+			#room = Room.objects.values('roomtype').annotate(count=Count('roomtype'))
+			#room_max = room.aggregate(Max('roomtype')
 			context = {
 			'userdetails':userdetails,
-			'room':room,
-			'count_date':count_date
 			}
 		return render(request,'accomodationwuser.html', context)
 class IndexViewWUser(View):
@@ -206,9 +206,9 @@ class ContactViewWUser(View):
 ####################################admin views ####################
 class AdminView(View):
 	def get(self, request):
-		if 'admin' in request.session:
-			current_user = request.session['admin']
-			userdetails = Admin.objects.filter(username=current_user)
+		if 'usern' in request.session:
+			current_user = request.session['usern']
+			userdetails = User.objects.filter(username=current_user)
 			room = Room.objects.values('roomtype').annotate(count=Count('roomtype')).latest('count')
 			#order_by().annotate(count=Count('roomtype'))
 			#room = Room.objects.aggregate(max=Max('roomtype'))
@@ -221,9 +221,9 @@ class AdminView(View):
 		return render(request,'admin.html', context)
 class AdminAboutView(View):
 	def get(self, request):
-		if 'admin' in request.session:
-			current_user = request.session['admin']
-			userdetails = Admin.objects.filter(username=current_user)
+		if 'usern' in request.session:
+			current_user = request.session['usern']
+			userdetails = User.objects.filter(username=current_user)
 			#room = Room.objects.values('roomtype').order_by().annotate(count=Count('roomtype'))
 			#room = Room.objects.aggregate(max=Max('roomtype'))
 			room = Room.objects.values('roomtype').annotate(count=Count('roomtype'))
@@ -236,9 +236,9 @@ class AdminAboutView(View):
 		return render(request,'adminabout.html', context)
 class AdminContactView(View):
 	def get(self, request):
-		if 'admin' in request.session:
-			current_user = request.session['admin']
-			userdetails = Admin.objects.filter(username=current_user)
+		if 'usern' in request.session:
+			current_user = request.session['usern']
+			userdetails = User.objects.filter(username=current_user)
 			room = Room.objects.values('roomtype').order_by().annotate(count=Count('roomtype'))
 			#room = Room.objects.aggregate(max=Max('roomtype'))
 			count_date = Room.objects.values('dateofuse').annotate(count=Count('dateofuse'))
@@ -250,9 +250,9 @@ class AdminContactView(View):
 		return render(request,'admincontact.html', context)
 class AdminIndexView(View):
 	def get(self, request):
-		if 'admin' in request.session:
-			current_user = request.session['admin']
-			userdetails = Admin.objects.filter(username=current_user)
+		if 'usern' in request.session:
+			current_user = request.session['usern']
+			userdetails = User.objects.filter(username=current_user)
 			room = Room.objects.values('roomtype').order_by().annotate(count=Count('roomtype'))
 			#room = Room.objects.aggregate(max=Max('roomtype'))
 			count_date = Room.objects.values('dateofuse').annotate(count=Count('dateofuse'))
@@ -262,40 +262,3 @@ class AdminIndexView(View):
 			'count_date':count_date
 			}
 		return render(request,'adminindex.html', context)
-class AdminRegistrationView(View): 
-	def get(self, request):
-		user = Admin.objects.all()
-		context = {
-			'user':user,
-		}
-		return render(request,'adminregistration.html',context)
-	def post(self, request):		
-		form = UserForm(request.POST)		
-		if form.is_valid():
-			username = request.POST.get("username")
-			password = request.POST.get("password")
-			emailadd = request.POST.get("emailadd")
-			fname = request.POST.get("fname")
-			lname = request.POST.get("lname")
-			address = request.POST.get("address")
-			contactNum = request.POST.get("contactNum")
-
-			form = Admin(username=username,password=password,emailadd=emailadd,fname=fname,lname=lname,address=address,contactNum=contactNum)
-			form.save()	
-			return redirect('/conferenceroom/signin')
-		else:
-			print(form.errors)
-			return HttpResponse('not valid')
-class AdminDashboardView(View):
-	def get(self, request):
-		if 'admin' in request.session:
-			current_user = request.session['admin']
-			userdetails = Admin.objects.filter(username=current_user)
-			count_date = Room.objects.values('dateofuse').order_by('dateofuse').annotate(count=Count('dateofuse'))
-			#room = Room.objects.values('roomtype').annotate(count=Count('roomtype'))
-			#room_max = room.aggregate(Max('roomtype')
-			context = {
-			'userdetails':userdetails,
-			'count_date':count_date
-			}
-		return render(request,'admindashboard.html', context)

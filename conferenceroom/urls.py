@@ -1,6 +1,5 @@
 from django.urls import path
 from.import views
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 app_name = 'conferenceroom'
 urlpatterns= [
@@ -26,5 +25,4 @@ urlpatterns= [
      path('admincontact',views.AdminContactView.as_view(), name="my_admin_contact_view"),
      path('adminindex',views.AdminIndexView.as_view(), name="my_admin_index_view"),
      path('admindashboard',views.AdminDashboardView.as_view(), name="my_admin_dashboard_view"),
-     path('adminregistration',views.AdminRegistrationView.as_view(), name="my_admin_registration_view"),
      ]
