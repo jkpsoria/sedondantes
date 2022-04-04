@@ -77,15 +77,13 @@ WSGI_APPLICATION = 'nameless.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nameless',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'it342-database',
+        'USER': 'jkpsoria',
+        'PASSWORD': 'P@ssw0rd',
+        'HOST': 'it342-database.postgres.database.azure.com',
         'PORT': '3306',
-        'OPTIONS':{
-        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        }
+        'OPTIONS':{"sslmode":"required"},
     }
 }
 
