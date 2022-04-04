@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-jgbscgms=g!c8g0h*00$7ddm62+u%k*59e&lweji0@etjns&e^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['pancho-sedondantesconferenceroomreservation.azurewebsites.net/']
+ALLOWED_HOSTS = ['pancho-sedondantesconferenceroomreservation.azurewebsites.net']
 
 
 # Application definition
