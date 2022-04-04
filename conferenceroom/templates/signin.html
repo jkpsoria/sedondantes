@@ -81,9 +81,10 @@
                 <h3>User Sign In</h3>
               </div>
               <form id = "form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
-                {% csrf_token %}
+                
               <!-- Login Form -->
               <form method="POST">
+                {% csrf_token %}
                 <input type="text" id="login" class="fadeIn second" id="username"  name="username"  placeholder="Username"><br></br>
                 <input type="password" id="password" class="fadeIn second" id="password" name="password"  placeholder="Password"><br></br>
                 <input type="submit" class="fadeIn fourth" name="signin" value="Log In">
