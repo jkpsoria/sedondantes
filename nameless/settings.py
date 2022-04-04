@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'nameless.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'it342-database',
+        'NAME': 'sedondantes-database',
         'USER': 'jkpsoria',
         'PASSWORD': 'P@ssw0rd',
         'HOST': 'it342-database.postgres.database.azure.com',
         'PORT': '3306',
-        'OPTIONS':{"sslmode":"required"},
+        'OPTIONS':{"sslmode": "required"},
     }
 }
 
